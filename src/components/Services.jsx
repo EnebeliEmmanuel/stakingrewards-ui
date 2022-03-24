@@ -10,8 +10,8 @@ const style = {
 
 const Staking = () => {
   return (
-    <div className="blue-glassmorphism  h-[45rem] ">
-      <div className=" w-55 h-86   space-y-3 px-14">
+    <div className="blue-glassmorphism  h-[35rem] ">
+      <div className="   px-2">
         <Header />
         <Main />
       </div>
@@ -29,7 +29,7 @@ const Header = () => {
 
 const Main = () => {
   return (
-    <div className=" blue-glassmorphism space-y-3">
+    <div className="  ">
       <Circle />
       <AvailableStaked />
       <Payment />
@@ -40,7 +40,7 @@ const Main = () => {
 const Circle = () => {
   return (
     <div className="flex space-x-6 justify-center items-center">
-      <div className=" rounded-full w-52 h-52 bg-white flex justify-center m-16 items-center ">
+      <div className=" rounded-full w-52 h-52 bg-white flex justify-center  items-center ">
         <div className="w-44 h-44 rounded-full bg-blue-500 flex justify-center items-center">
           <div className="w-36 h-36 rounded-full bg-blue-900 flex flex-col space-y-1 justify-center items-center">
             <span className="text-sm text-gray-300  ">Total Balance</span>
@@ -180,19 +180,19 @@ const Services = () => (
         <ServiceCard
           color="bg-[#2952E3]"
           title="Security gurantee"
-          icon={<BsShieldFillCheck fontSize={21} className="text-white" />}
+          icon={<BsShieldFillCheck fontSize={18} className="text-white" />}
           subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products"
         />
         <ServiceCard
           color="bg-[#8945F8]"
           title="Best exchange rates"
-          icon={<BiSearchAlt fontSize={21} className="text-white" />}
+          icon={<BiSearchAlt fontSize={18} className="text-white" />}
           subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products"
         />
         <ServiceCard
           color="bg-[#F84550]"
           title="Fastest transactions"
-          icon={<RiHeart2Fill fontSize={21} className="text-white" />}
+          icon={<RiHeart2Fill fontSize={18} className="text-white" />}
           subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products"
         />
       </div>
