@@ -41,7 +41,7 @@ const Welcome = () => {
             Stake your <br />  assets on KokoToken
           </h1>
           <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
-            Stake with us and claim your rewards within the due date.
+         Buy, sell and swap for other cryptocurrencies. Stake your coins and earn 1% every 7 days
           </p>
           {!currentAccount && (
             <button
