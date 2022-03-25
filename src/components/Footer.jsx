@@ -1,5 +1,5 @@
 import React from "react";
-
+import { SocialIcon } from "react-social-icons";
 import logo from "../../images/logo.png";
 
 const Footer = () => (
@@ -9,17 +9,40 @@ const Footer = () => (
         <img src={logo} alt="logo" className="w-32" />
       </div>
       <div className="flex flex-1 justify-evenly items-center flex-wrap sm:mt-0 mt-5 w-full">
-        <p className="text-white text-base text-center mx-2 cursor-pointer">Market</p>
-        <p className="text-white text-base text-center mx-2 cursor-pointer">Exchange</p>
-        <p className="text-white text-base text-center mx-2 cursor-pointer">Staking</p>
-        <p className="text-white text-base text-center mx-2 cursor-pointer">Wallets</p>
+        <p className="text-white text-base text-center mx-2 cursor-pointer">
+          Market
+        </p>
+        <p className="text-white text-base text-center mx-2 cursor-pointer">
+          Exchange
+        </p>
+        <p className="text-white text-base text-center mx-2 cursor-pointer">
+          Staking
+        </p>
+        <p className="text-white text-base text-center mx-2 cursor-pointer">
+          Wallets
+        </p>
       </div>
     </div>
 
-    <div className="flex justify-center items-center flex-col mt-5">
-      <p className="text-white text-sm text-center">follow up with me as i will be coming up with more brilliant projects</p>
-      <p className="text-white text-sm text-center font-medium mt-2">info@koko-code.tech</p>
-    </div>
+    <button
+      type="button"
+      className="flex flex-row justify-center items-center my-5 bg-[#b3a702] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
+    >
+      <a
+        class="hire-me-btn"
+        href="mailto:iemmaenebeli@gmail.com"
+        target="_blank"
+        class="hire-me-content"
+      >
+        Get intouch <i class="fas fa-arrow-right"></i>
+      </a>
+    </button>
+
+    <span className="flex space-x-4  my-5">
+      <SocialIcon url="https://www.linkedin.com/in/emmanuel-enebeli-07893b1a2/" />
+      <SocialIcon url="https://github.com/EnebeliEmmanuel" />
+      <SocialIcon url="https://twitter.com/kokocodes_" />
+    </span>
 
     <div className="sm:w-[90%] w-full h-[0.25px] bg-gray-400 mt-5 " />
 

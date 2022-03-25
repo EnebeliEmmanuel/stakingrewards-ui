@@ -3,6 +3,8 @@ import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 
+
+import { SocialIcon } from "react-social-icons";
 import { TransactionContext } from "../context/TransactionContext";
 import { shortenAddress } from "../utils/shortenAddress";
 import { Loader } from ".";
@@ -38,10 +40,11 @@ const Welcome = () => {
       <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
         <div className="flex flex-1 justify-start items-start flex-col mf:mr-10">
           <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
-            Stake your <br />  assets on KokoToken
+            Stake your <br /> assets on KokoToken
           </h1>
           <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
-         Buy, sell and swap for other cryptocurrencies. Stake your coins and earn 1% every 7 days
+            Buy, sell and swap for other cryptocurrencies. Stake your coins and
+            earn 1% every 7 days
           </p>
           {!currentAccount && (
             <button
@@ -55,7 +58,28 @@ const Welcome = () => {
               </p>
             </button>
           )}
+
+          <div class="socials-logo">
+            <button
+              type="button"
+              className="flex flex-row justify-center items-center my-5 bg-[#b3a702] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
+            >
+              <a
+                class="hire-me-btn"
+                href="mailto:iemmaenebeli@gmail.com"
+                target="_blank"
+                class="hire-me-content"
+              >
+                Hire Me <i class="fas fa-arrow-right"></i>
+              </a>
+            </button>
+<span className="flex space-x-4  my-5">
+            <SocialIcon url="https://www.linkedin.com/in/emmanuel-enebeli-07893b1a2/" />
+            <SocialIcon url="https://github.com/EnebeliEmmanuel" />
+            <SocialIcon url="https://twitter.com/kokocodes_" />
+</span>
           
+          </div>
 
           <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
             <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
