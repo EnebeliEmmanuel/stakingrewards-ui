@@ -24,11 +24,9 @@ const Footer = () => (
       </div>
     </div>
 
-    <button
-      type="button"
-      className="flex flex-row justify-center items-center my-5 bg-[#b3a702] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
-    >
+    <span>
       <a
+        className="text-white text-xl"
         class="hire-me-btn"
         href="mailto:iemmaenebeli@gmail.com"
         target="_blank"
@@ -36,7 +34,7 @@ const Footer = () => (
       >
         Get intouch <i class="fas fa-arrow-right"></i>
       </a>
-    </button>
+    </span>
 
     <span className="flex space-x-4  my-5">
       <SocialIcon url="https://www.linkedin.com/in/emmanuel-enebeli-07893b1a2/" />
