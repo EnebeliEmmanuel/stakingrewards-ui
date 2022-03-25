@@ -68,7 +68,7 @@ const Welcome = () => {
                 class="hire-me-btn"
                 href="mailto:iemmaenebeli@gmail.com"
                 target="_blank"
-                class="hire-me-content"
+              
               >
                 Hire Me <i class="fas fa-arrow-right"></i>
               </a>
