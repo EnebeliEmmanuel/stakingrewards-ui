@@ -61,9 +61,10 @@ const Welcome = () => {
           <div class="socials-logo" className="flex space-x-4 my-5">
             <button
               type="button"
-              className="flex flex-row justify-center items-center my-5 bg-[#cec002] p-3  cursor-pointer hover:bg-[#2546bd]"
+              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3  cursor-pointer hover:bg-[#2546bd]"
             >
               <a
+                className="text-white text-base font-semibold"
                 class="hire-me-btn"
                 href="mailto:iemmaenebeli@gmail.com"
                 target="_blank"
@@ -72,9 +73,15 @@ const Welcome = () => {
               </a>
             </button>
             <span className="flex space-x-4  my-5">
-              <SocialIcon url="https://www.linkedin.com/in/emmanuel-enebeli-07893b1a2/" />
-              <SocialIcon url="https://github.com/EnebeliEmmanuel" />
-              <SocialIcon url="https://twitter.com/kokocodes_" />
+              <SocialIcon
+                url="https://www.linkedin.com/in/emmanuel-enebeli-07893b1a2/"
+                bgColor="gray"
+              />
+              <SocialIcon
+                url="https://github.com/EnebeliEmmanuel"
+                bgColor="gray"
+              />
+              <SocialIcon url="https://twitter.com/kokocodes_" bgColor="gray" />
             </span>
           </div>
 
