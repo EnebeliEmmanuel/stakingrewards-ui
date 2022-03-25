@@ -7,6 +7,8 @@ export const TransactionContext = React.createContext();
 
 const { ethereum } = window;
 
+
+
 const createEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
@@ -37,7 +39,16 @@ const unstaketoken = async (tokens) => {
 
 const claimtoken = async () => {
   const contract = createEthereumContract();
-  await contract.claimReward();
+  try {
+    if (await contract.claimReward()) {
+      setBalance(balance.add(reward));
+      setReward(ethers.BigNumber.from(0));
+
+      success("Reward has been added to Balance");
+    }
+  } catch (e) {
+    error(e.error.message);
+  }
 };
 
 const staked = async () => {
@@ -201,6 +212,30 @@ export const TransactionsProvider = ({ children }) => {
     checkIfWalletIsConnect();
     checkIfTransactionsExists();
   }, [transactionCount]);
+
+  const [stake, setStake] = useState(ethers.BigNumber.from(0));
+  const [balance, setBalance] = useState(ethers.BigNumber.from(0));
+  const [reward, setReward] = useState(ethers.BigNumber.from(0));
+  const [inputAmount, setInputAmount] = useState(ethers.BigNumber.from(0));
+  const [receiver, setReceiver] = useState("");
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!loaded) {
+      async function getInfo() {
+        const [stake, balance, reward] = await contract.getBalances();
+        setStake(stake);
+        setBalance(balance);
+        setReward(reward);
+      }
+      async function requestAccount() {
+        await provider.send("eth_requestAccounts", []);
+        getInfo();
+      }
+      requestAccount();
+      setLoaded(true);
+    }
+  }, [loaded]);
 
   return (
     <TransactionContext.Provider

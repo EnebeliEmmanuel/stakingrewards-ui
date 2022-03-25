@@ -76,7 +76,7 @@ const Payment = () => {
   const pop = async (type) => {
     if (type === "buy") {
       const { value: formValues } = await Swal.fire({
-        title: "Buy Token",
+        title: "Buy KTK",
         html:
           '<input type="text" id="address" class="" placeholder="Enter Address">' +
           '<input type="text" id="amount" class="" placeholder="Enter Amount">',
@@ -93,7 +93,7 @@ const Payment = () => {
       }
     } else if (type === "stake") {
       const { value: formValues } = await Swal.fire({
-        title: "Stake Token",
+        title: "Stake KTK",
         html: '<input type="text" id="amount" class="" placeholder="Enter Amount">',
         focusConfirm: false,
         preConfirm: () => {
@@ -105,7 +105,7 @@ const Payment = () => {
       }
     } else if (type === "unstake") {
       const { value: formValues } = await Swal.fire({
-        title: "Unstake Token",
+        title: "Unstake KTK",
         html: '<input type="text" id="amount" class="" placeholder="Enter Amount">',
         focusConfirm: false,
         preConfirm: () => {
@@ -117,8 +117,8 @@ const Payment = () => {
       }
     } else if (type === "claim") {
       await Swal.fire({
-        title: "Claim Token",
-        html: "<p>Claim your rewards</p>",
+        title: "Claim Your Stake Rewards",
+        html: "<p>Claim your rewards and check your balance</p>",
       });
       claimtoken();
     }
