@@ -24,10 +24,8 @@ const Footer = () => (
       </div>
     </div>
 
-    <span>
+    <span className="text-white  text-xl">
       <a
-        className="text-white  text-xl"
-     
         href="mailto:iemmaenebeli@gmail.com"
         target="_blank"
         class="hire-me-content"
