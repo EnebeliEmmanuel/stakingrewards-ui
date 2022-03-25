@@ -26,8 +26,8 @@ const Footer = () => (
 
     <span>
       <a
-        className="text-white text-xl"
-        class="hire-me-btn"
+        className="text-white  text-xl"
+     
         href="mailto:iemmaenebeli@gmail.com"
         target="_blank"
         class="hire-me-content"
