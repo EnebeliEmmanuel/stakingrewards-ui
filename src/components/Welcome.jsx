@@ -43,8 +43,7 @@ const Welcome = () => {
             Stake your <br /> assets on KokoToken
           </h1>
           <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
-            Explore the crypto world. Stake your coins and
-            earn 1% every 7 days
+            Explore my world. Stake your coins and earn 1% every 7 days
           </p>
           {!currentAccount && (
             <button
@@ -59,7 +58,7 @@ const Welcome = () => {
             </button>
           )}
 
-          <div class="socials-logo">
+          <div class="socials-logo" className="flex space-x-4 my-5">
             <button
               type="button"
               className="flex flex-row justify-center items-center my-5 bg-[#b3a702] p-3  cursor-pointer hover:bg-[#2546bd]"
@@ -68,17 +67,15 @@ const Welcome = () => {
                 class="hire-me-btn"
                 href="mailto:iemmaenebeli@gmail.com"
                 target="_blank"
-              
               >
                 Hire Me <i class="fas fa-arrow-right"></i>
               </a>
             </button>
-<span className="flex space-x-4  my-5">
-            <SocialIcon url="https://www.linkedin.com/in/emmanuel-enebeli-07893b1a2/" />
-            <SocialIcon url="https://github.com/EnebeliEmmanuel" />
-            <SocialIcon url="https://twitter.com/kokocodes_" />
-</span>
-          
+            <span className="flex space-x-4  my-5">
+              <SocialIcon url="https://www.linkedin.com/in/emmanuel-enebeli-07893b1a2/" />
+              <SocialIcon url="https://github.com/EnebeliEmmanuel" />
+              <SocialIcon url="https://twitter.com/kokocodes_" />
+            </span>
           </div>
 
           <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
