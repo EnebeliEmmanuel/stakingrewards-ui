@@ -61,7 +61,7 @@ const Welcome = () => {
           <div class="socials-logo" className="flex space-x-4 my-5">
             <button
               type="button"
-              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3  cursor-pointer hover:bg-[#2546bd]"
+              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3  cursor-pointer hover:bg-[#2546bd] text-white text-base font-semibold"
             >
               <a
                 className="text-white text-base font-semibold"
