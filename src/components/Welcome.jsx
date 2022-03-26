@@ -26,7 +26,7 @@ const Welcome = () => {
   const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContext);
 
   const handleSubmit = (e) => {
-    const { addressTo, amount, keyword, message } = formData;
+    const { addressTo, amount } = formData;
 
     e.preventDefault();
 
@@ -75,13 +75,13 @@ const Welcome = () => {
             <span className="flex space-x-4  my-5">
               <SocialIcon
                 url="https://www.linkedin.com/in/emmanuel-enebeli-07893b1a2/"
-                bgColor="gray"
+                
               />
               <SocialIcon
                 url="https://github.com/EnebeliEmmanuel"
                 bgColor="gray"
               />
-              <SocialIcon url="https://twitter.com/kokocodes_" bgColor="gray" />
+              <SocialIcon url="https://twitter.com/kokocodes_" />
             </span>
           </div>
 
@@ -135,18 +135,7 @@ const Welcome = () => {
               type="number"
               handleChange={handleChange}
             />
-            <Input
-              placeholder="Keyword (Gif)"
-              name="keyword"
-              type="text"
-              handleChange={handleChange}
-            />
-            <Input
-              placeholder="Enter Message"
-              name="message"
-              type="text"
-              handleChange={handleChange}
-            />
+           
 
             <div className="h-[1px] w-full bg-gray-400 my-2" />
 

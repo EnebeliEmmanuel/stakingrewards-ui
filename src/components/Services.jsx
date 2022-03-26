@@ -10,8 +10,8 @@ const style = {
 
 const Staking = () => {
   return (
-    <div className="blue-glassmorphism  h-[35rem] ">
-      <div className="   px-2">
+    <div className="blue-glassmorphism  h-[34rem] ">
+      <div className="   px-1">
         <Header />
         <Main />
       </div>
@@ -42,13 +42,13 @@ const Circle = () => {
     <div className="flex space-x-6 justify-center items-center">
       <div className=" rounded-full w-52 h-52 bg-white flex justify-center  items-center ">
         <div className="w-44 h-44 rounded-full bg-blue-500 flex justify-center items-center">
-          <div className="w-36 h-36 rounded-full bg-blue-900 flex flex-col space-y-1 justify-center items-center">
+          <button className="w-36 h-36 rounded-full bg-blue-900 flex flex-col space-y-1 justify-center items-center hover:bg-[#017701]">
             <span className="text-sm text-gray-300  ">Total Balance</span>
-            <p className="text-bold text-white font-bold text-2xl">89.004</p>
+
             <p className="text-bold text-white text-sm uppercase self-center font-bold">
               KTK
             </p>
-          </div>
+          </button>
         </div>
       </div>
     </div>
@@ -57,14 +57,14 @@ const Circle = () => {
 
 const AvailableStaked = () => {
   return (
-    <div className="flex space-x-6 justify-center items-center">
-      <div className="space-y-1">
-        <p className={style.ava}>Available</p>
-        <p className={style.ava}>Staked</p>
-      </div>
-      <div className="space-y-1">
-        <p className={style.ava}>18.1010(18%)</p>
-        <p className={style.ava}>73.4910(1%)</p>
+    <div className="flex flex-row  justify-center items-center">
+      <div className="space-x-8 m-[0.5rem] flex flex-row ">
+        <div className="  px-2  py-[0.5rem] p-8   bg-blue-500 rounded-lg text-gray-100    font-semibold cursor-pointer hover:bg-[#1a37a1]">
+          Available
+        </div>
+        <div className="px-2  py-[0.5rem] p-8   bg-blue-500 rounded-lg text-gray-100  hover:bg-[#1a37a1]  font-semibold cursor-pointer">
+          Staked
+        </div>
       </div>
     </div>
   );
@@ -125,10 +125,10 @@ const Payment = () => {
   };
 
   return (
-    <div className=" flex   flex-col space-px-5 justify-center items-center  ">
+    <div className=" flex   flex-col space-py-3 justify-center items-center  ">
       <div
         onClick={() => pop("buy")}
-        className="  w-[18rem] px-[6.5rem] m-4 py-[0.5rem]  bg-blue-500 rounded-lg text-gray-100    font-semibold cursor-pointer"
+        className="  w-[18rem] px-[6.5rem] m-3 py-[0.5rem]  bg-blue-500 rounded-lg text-gray-100  hover:bg-[#1a37a1]  font-semibold cursor-pointer"
       >
         Buy Token
       </div>
@@ -141,13 +141,13 @@ const Payment = () => {
       </div>
       <div
         onClick={() => pop("claim")}
-        className=" w-[18rem] px-[7.7rem] m-4 cursor-pointer py-[0.4rem] p-14  bg-yellow-600 rounded-lg text-gray-100  font-semibold"
+        className=" w-[18rem] px-[7.7rem] m-4 cursor-pointer py-[0.4rem] p-14  bg-yellow-600 rounded-lg text-gray-100 hover:bg-[#017701] font-semibold"
       >
         claim
       </div>
       <div
         onClick={() => pop("unstake")}
-        className=" w-[18rem] px-[7.3rem] m-3 cursor-pointer py-[0.4rem]   bg-red-600 rounded-lg text-gray-100  font-semibold"
+        className=" w-[18rem] px-[7.3rem] m-3 cursor-pointer py-[0.4rem]   bg-red-600 rounded-lg text-gray-100 hover:bg-[#dd0202] font-semibold"
       >
         unstake
       </div>
@@ -195,6 +195,13 @@ const Services = () => (
           icon={<RiHeart2Fill fontSize={18} className="text-white" />}
           subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products"
         />
+        <ServiceCard
+          color="bg-[#2952E3]"
+          title="Transaction History"
+          icon={<BsShieldFillCheck fontSize={18} className="text-white" />}
+          subtitle="View logs and recieve a printout of all your transactions in your inbox at the click of a button"
+        />
+  
       </div>
     </div>
   </div>

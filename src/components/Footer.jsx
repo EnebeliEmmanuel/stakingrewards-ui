@@ -37,10 +37,10 @@ const Footer = () => (
     <span className="flex space-x-4  my-5">
       <SocialIcon
         url="https://www.linkedin.com/in/emmanuel-enebeli-07893b1a2/"
-        bgColor="gray"
+        
       />
       <SocialIcon url="https://github.com/EnebeliEmmanuel" bgColor="gray" />
-      <SocialIcon url="https://twitter.com/kokocodes_" bgColor="gray" />
+      <SocialIcon url="https://twitter.com/kokocodes_"  />
     </span>
 
     <div className="sm:w-[90%] w-full h-[0.25px] bg-gray-400 mt-5 " />
