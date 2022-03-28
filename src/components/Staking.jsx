@@ -1,5 +1,148 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { ethers } from "ethers";
 
+
+
+  const [contractInfo, setContractInfo] = useState({
+    address: "-",
+    tokenName: "-",
+    tokenSymbol: "-",
+    totalSupply: "-",
+  });
+  const [balanceInfo, setBalanceInfo] = useState({
+    address: "-",
+    balance: "-",
+  });
+  const [userStakeInfo, setuserStakeInfo] = useState({
+    address: "-",
+    balance: "-",
+  });
+
+  useEffect(() => {
+    if (contractInfo.address !== "-") {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const erc20 = new ethers.Contract(
+        contractInfo.address,
+        erc20abi,
+        provider
+      );
+
+      erc20.on("Transfer", (from, to, amount, event) => {
+        console.log({ from, to, amount, event });
+
+        setTxs((currentTxs) => [
+          ...currentTxs,
+          {
+            txHash: event.transactionHash,
+            from,
+            to,
+            amount: String(amount),
+          },
+        ]);
+      });
+      setContractListened(erc20);
+
+      return () => {
+        contractListened.removeAllListeners();
+      };
+    }
+  }, [contractInfo.address]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    const erc20 = new ethers.Contract(
+      "0xF38AbbDE9ffC9e6178CedC38be273ee531abAf4a",
+      erc20abi,
+      provider
+    );
+
+    const tokenName = await erc20.name();
+    const tokenSymbol = await erc20.symbol();
+    const totalSupply = await erc20.totalSupply();
+
+    setContractInfo({
+      address: "0xF38AbbDE9ffC9e6178CedC38be273ee531abAf4a",
+      tokenName,
+      tokenSymbol,
+      totalSupply,
+    });
+    setintroMessage("");
+  };
+
+  const getMyBalance = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const erc20 = new ethers.Contract(contractInfo.address, erc20abi, provider);
+    const signer = await provider.getSigner();
+    const signerAddress = await signer.getAddress();
+    const balance = await erc20.balanceOf(signerAddress);
+
+    setBalanceInfo({
+      address: signerAddress,
+      balance: String(balance),
+    });
+  };
+
+  const handleTransfer = async (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = await provider.getSigner();
+    const erc20 = new ethers.Contract(contractInfo.address, erc20abi, signer);
+    await erc20.transfer(data.get("recipient"), data.get("amount"));
+  };
+
+  const stakeToken = async (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = await provider.getSigner();
+    const signerAddress = await signer.getAddress();
+    const erc20 = new ethers.Contract(contractInfo.address, erc20abi, signer);
+    await erc20.stakeToken(data.get("amount"));
+  };
+
+  const buyToken = async (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = await provider.getSigner();
+    const signerAddress = await signer.getAddress();
+    const erc20 = new ethers.Contract(contractInfo.address, erc20abi, signer);
+    const options = { value: ethers.utils.parseEther(data.get("amount")) };
+    await erc20.buyToken(options);
+  };
+
+  const claimReward = async (e) => {
+    e.preventDefault();
+    // const data = new FormData(e.target);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = await provider.getSigner();
+    const erc20 = new ethers.Contract(contractInfo.address, erc20abi, signer);
+    const status = await erc20.claimReward();
+  };
+
+  const getMyStakeBalance = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const erc20 = new ethers.Contract(contractInfo.address, erc20abi, provider);
+    const signer = await provider.getSigner();
+    const signerAddress = await signer.getAddress();
+    const balance = await erc20.stakeBalance(signerAddress);
+
+    setuserStakeInfo({
+      address: signerAddress,
+      balance: String(balance),
+    });
+  };
 const style = {
   ava: `text-xs font-bold text-gray-100`,
 };
@@ -10,8 +153,98 @@ const Staking = () => {
       <div className=" w-55 h-86   space-y-3 px-14">
         <Header />
         <Main />
+        <Footer />
       </div>
     </div>
+  );
+};
+
+const Footer = () => {
+  return (
+  <footer className="p-4">
+              <button
+                type="submit"
+                className="btn btn-success submit-button focus:ring focus:outline-none w-full"
+              >
+                Get token info
+              </button>
+            
+            <div className="px-4">
+              <div className="overflow-x-auto">
+                <table className="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Symbol</th>
+                      <th>Total supply</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>{contractInfo.tokenName}</th>
+                      <td>{contractInfo.tokenSymbol}</td>
+                      <td>{String(contractInfo.totalSupply)}</td>
+                      <td>{contractInfo.deployedAt}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="p-4">
+              <button
+                onClick={getMyBalance}
+                type="submit"
+                className="btn btn-success submit-button focus:ring focus:outline-none w-full"
+              >
+                Get my balance
+              </button>
+            </div>
+            <div className="px-4">
+              <div className="overflow-x-auto">
+                <table className="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Address</th>
+                      <th>Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>{balanceInfo.address}</th>
+                      <td>{balanceInfo.balance}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="p-4">
+              <button
+                onClick={getMyStakeBalance}
+                type="submit"
+                className="btn btn-success submit-button focus:ring focus:outline-none w-full"
+              >
+                Get Stake balance
+              </button>
+            </div>
+            <div className="px-4">
+              <div className="overflow-x-auto">
+                <table className="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Address</th>
+                      <th>Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>{userStakeInfo.address}</th>
+                      <td>{userStakeInfo.balance}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            </footer>
   );
 };
 

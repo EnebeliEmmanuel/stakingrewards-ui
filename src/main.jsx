@@ -10,4 +10,5 @@ ReactDOM.render(
     <App />
   </TransactionsProvider>,
   document.getElementById("root"),
+
 );

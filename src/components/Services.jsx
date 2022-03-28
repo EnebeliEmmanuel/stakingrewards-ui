@@ -8,6 +8,191 @@ const style = {
   ava: `text-xs font-bold text-gray-100`,
 };
 
+{
+  /*class Reservation extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isGoing: true,
+      numberOfGuests: 2,
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  render() {
+    return (
+      <form>
+        <label>
+          Is going:
+          <input
+            name="isGoing"
+            type="checkbox"
+            checked={this.state.isGoing}
+            onChange={this.handleInputChange}
+          />
+        </label>
+        <br />
+        <label>
+          Number of guests:
+          <input
+            name="numberOfGuests"
+            type="number"
+            value={this.state.numberOfGuests}
+            onChange={this.handleInputChange}
+          />
+        </label>
+      </form>
+    );
+  }
+}
+*/
+}
+const Reservation = () => {
+  return (
+    <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+      <div>
+        <form className="m-4" onSubmit={"handleSubmit"}>
+          <div className="credit-card w-full lg:w-4/4 sm:w-auto shadow-lg mx-auto rounded-xl bg-white">
+            <main className="mt-4 p-4">
+              {/* {introMessage === "" && (
+                <h1 className="text-xl font-semibold text-gray-700 text-center">
+                  Read From Smart Contract
+                </h1>
+              )} */}
+              <p className="text-xl font-semibold text-gray-700 text-center">
+                {"introMessage"}
+              </p>
+              {/* <div className="">
+                <div className="my-3">
+                  <input
+                    type="text"
+                    name="addr"
+                    className="input input-bordered block w-full focus:ring focus:outline-none"
+                    placeholder="ERC20 contract address"
+                  />
+                </div>
+              </div> */}
+            </main>
+            <footer className="p-4">
+              <button
+                type="submit"
+                className="btn btn-success submit-button focus:ring focus:outline-none w-full"
+              >
+                Get token info
+              </button>
+            </footer>
+            <div className="px-4">
+              <div className="overflow-x-auto">
+                <table className="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Symbol</th>
+                      <th>Total supply</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>{"contractInfo.tokenName"}</th>
+                      <td>{"contractInfo.tokenSymbol"}</td>
+                      <td>{"String(contractInfo.totalSupply)"}</td>
+                      <td>{"contractInfo.deployedAt"}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="p-4">
+              <button
+                onClick={"getMyBalance"}
+                type="submit"
+                className="btn btn-success submit-button focus:ring focus:outline-none w-full"
+              >
+                Get my balance
+              </button>
+            </div>
+            <div className="px-4">
+              <div className="overflow-x-auto">
+                <table className="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Address</th>
+                      <th>Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>{"balanceInfo.address"}</th>
+                      <td>{"balanceInfo.balance"}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="p-4">
+              <button
+                onClick={"getMyStakeBalance"}
+                type="submit"
+                className="btn btn-success submit-button focus:ring focus:outline-none w-full"
+              >
+                Get Stake balance
+              </button>
+            </div>
+            <div className="px-4">
+              <div className="overflow-x-auto">
+                <table className="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Address</th>
+                      <th>Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>{"userStakeInfo.address"}</th>
+                      <td>{"userStakeInfo.balance"}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        {/* <div className="m-4 credit-card w-full lg:w-3/4 sm:w-auto shadow-lg mx-auto rounded-xl bg-white">
+          <div className="mt-4 p-4">
+            <h1 className="text-xl font-semibold text-gray-700 text-center">
+              Recent transactions
+            </h1>
+            <p>
+              <TxList txs={txs} />
+            </p>
+          </div>
+        </div> */}
+      </div>
+      <div>
+        <div className="m-4 credit-card w-full lg:w-3/4 sm:w-auto shadow-lg mx-auto rounded-xl bg-white">
+          <div className="mt-4 p-4">
+            <h1 className="text-xl font-semibold text-gray-700 text-center">
+              Write to Smart Contract
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 const Staking = () => {
   return (
     <div className="blue-glassmorphism  h-[34rem] ">
@@ -71,7 +256,7 @@ const AvailableStaked = () => {
 };
 
 const Payment = () => {
-  const { buytoken, staketoken, unstaketoken, claimtoken } =
+  const { buytoken, staketoken, unstaketoken, claimtoken, checkClaimReward } =
     useContext(TransactionContext);
   const pop = async (type) => {
     if (type === "buy") {
@@ -118,7 +303,7 @@ const Payment = () => {
     } else if (type === "claim") {
       await Swal.fire({
         title: "Claim Your Stake Rewards",
-        html: "<p>Claim your rewards and check your balance</p>",
+        html: "<p>Claim your rewards and check your balance</p> ",
       });
       claimtoken();
     }
@@ -140,7 +325,7 @@ const Payment = () => {
         Stake
       </div>
       <div
-        onClick={() => pop("claim")}
+        onClick={() => checkClaimReward}
         className=" w-[18rem] px-[7.7rem] m-4 cursor-pointer py-[0.4rem] p-14  bg-yellow-600 rounded-lg text-gray-100 hover:bg-[#017701] font-semibold"
       >
         claim
@@ -177,31 +362,7 @@ const Services = () => (
       </div>
 
       <div className="flex-1 flex flex-col justify-start items-center">
-        <ServiceCard
-          color="bg-[#2952E3]"
-          title="Security gurantee"
-          icon={<BsShieldFillCheck fontSize={18} className="text-white" />}
-          subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products"
-        />
-        <ServiceCard
-          color="bg-[#8945F8]"
-          title="Best exchange rates"
-          icon={<BiSearchAlt fontSize={18} className="text-white" />}
-          subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products"
-        />
-        <ServiceCard
-          color="bg-[#F84550]"
-          title="Fastest transactions"
-          icon={<RiHeart2Fill fontSize={18} className="text-white" />}
-          subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our products"
-        />
-        <ServiceCard
-          color="bg-[#2952E3]"
-          title="Transaction History"
-          icon={<BsShieldFillCheck fontSize={18} className="text-white" />}
-          subtitle="View logs and recieve a printout of all your transactions in your inbox at the click of a button"
-        />
-  
+        <Reservation />
       </div>
     </div>
   </div>

@@ -51,11 +51,24 @@ const claimtoken = async () => {
   }
 };
 
-const staked = async () => {
-  const contract = createEthereumContract();
-  const staked = await contract.stakeOf();
-  return staked;
-};
+const checkClaimReward = async ()=> {
+   const contract = createEthereumContract();
+
+  try{
+   if (await contract.checkRewardDueDate()) {
+      // setBalance(balance.add(reward));
+      // setReward(ethers.BigNumber.from(0));
+      success("Reward has been added to Balance");
+    }else{
+      alert("Not yet")
+    }
+  }catch(e){
+    console.error(e)
+  }
+}
+
+
+
 
 export const TransactionsProvider = ({ children }) => {
   const [formData, setformData] = useState({
@@ -182,8 +195,7 @@ export const TransactionsProvider = ({ children }) => {
         const transactionHash = await transactionsContract.addToBlockchain(
           addressTo,
           parsedAmount,
-          message,
-          keyword
+         
         );
 
         setIsLoading(true);
@@ -212,29 +224,104 @@ export const TransactionsProvider = ({ children }) => {
     checkIfTransactionsExists();
   }, [transactionCount]);
 
-  const [stake, setStake] = useState(ethers.BigNumber.from(0));
-  const [balance, setBalance] = useState(ethers.BigNumber.from(0));
-  const [reward, setReward] = useState(ethers.BigNumber.from(0));
-  const [inputAmount, setInputAmount] = useState(ethers.BigNumber.from(0));
-  const [receiver, setReceiver] = useState("");
-  const [loaded, setLoaded] = useState(false);
+ const [contractInfo, setContractInfo] = useState({
+   address: "-",
+   tokenName: "-",
+   tokenSymbol: "-",
+   totalSupply: "-",
+ });
+ const [balanceInfo, setBalanceInfo] = useState({
+   address: "-",
+   balance: "-",
+ });
+ const [userStakeInfo, setuserStakeInfo] = useState({
+   address: "-",
+   balance: "-",
+ });
 
   useEffect(() => {
-    if (!loaded) {
-      async function getInfo() {
-        const [stake, balance, reward] = await contract.getBalances();
-        setStake(stake);
-        setBalance(balance);
-        setReward(reward);
-      }
-      async function requestAccount() {
-        await provider.send("eth_requestAccounts", []);
-        getInfo();
-      }
-      requestAccount();
-      setLoaded(true);
+    if (contractInfo.address !== "-") {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const kokoToken = new ethers.Contract(
+        contractInfo.contractAddress,
+        contractABI,
+        provider
+      );
+
+      kokoToken.on("Transfer", (from, to, amount, event) => {
+        console.log({ from, to, amount, event });
+
+        setTxs((currentTxs) => [
+          ...currentTxs,
+          {
+            txHash: event.transactionHash,
+            from,
+            to,
+            amount: String(amount),
+          },
+        ]);
+      });
+      setContractListened(kokoToken);
+
+      return () => {
+        contractListened.removeAllListeners();
+      };
     }
-  }, [loaded]);
+  }, [contractInfo.contractAddress]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    const kokoToken = new ethers.Contract(
+      "0xCEf919F936357cf177BC4B23Bc7b6C58cE82c616",
+      kokoToken,
+      provider
+    );
+
+    const tokenName = await kokoToken.name();
+    const tokenSymbol = await kokoToken.symbol();
+    const totalSupply = await kokoToken.totalSupply();
+
+    setContractInfo({
+      address: "0xCEf919F936357cf177BC4B23Bc7b6C58cE82c616",
+      tokenName,
+      tokenSymbol,
+      totalSupply,
+    });
+    setintroMessage("");
+  };
+
+   const  getMyBalance = async () => {
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const kokoToken = new ethers.Contract(contractInfo.address, contractAbi, provider);
+    const signer = await provider.getSigner();
+    const signerAddress = await signer.getAddress();
+    const balance = await kokoToken.balanceOf(signerAddress);
+
+    setBalanceInfo({
+      address: signerAddress,
+      balance: String(balance),
+    });
+  };
+const getMyStakeBalance = async () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  await provider.send("eth_requestAccounts", []);
+  const kokoToken = new ethers.Contract(contractInfo.contractAddress, contractABI, provider);
+  const signer = await provider.getSigner();
+  const signerAddress = await signer.getAddress();
+  const balance = await kokoToken.stakeOf(signerAddress);
+
+  setuserStakeInfo({
+    address: signerAddress,
+    balance: String(balance),
+  });
+};
+
+
+
 
   return (
     <TransactionContext.Provider
@@ -251,7 +338,15 @@ export const TransactionsProvider = ({ children }) => {
         staketoken,
         unstaketoken,
         claimtoken,
-        staked,
+      checkClaimReward,
+        getMyStakeBalance,
+        getMyBalance,
+        handleSubmit,
+        contractInfo,
+  
+        userStakeInfo,
+        contractAddress,
+       
       }}
     >
       {children}
